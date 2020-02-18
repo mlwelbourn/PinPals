@@ -10,6 +10,7 @@ login_manager.init_app(app)
 import models
 from resources.pins import pins
 from resources.users import users
+from resources.messages import messages
 
 @login_manager.user_loader
 def load_user(userid):
@@ -33,9 +34,12 @@ def unauthorized():
 CORS(pins, origins=['http://localhost:3000'], supports_credentials=True)
 CORS(users, origins=['http://localhost:3000'],
 supports_credentials=True)
+CORS(messages, origins=['http://localhost:3000'],
+supports_credentials=True)
 
 app.register_blueprint(pins, url_prefix='/api/v1/pins')
 app.register_blueprint(users, url_prefix='/api/v1/users')
+app.register_blueprint(messages, url_prefix='/api/v1/messages')
 
 @app.before_request
 def before_request():

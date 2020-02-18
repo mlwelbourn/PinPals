@@ -25,6 +25,7 @@ class Pin(Model):
 
 class Message(Model):
     message = CharField()
+    pin = ForeignKeyField(Pin, backref = 'messages')
     creator = ForeignKeyField(User, backref = 'messages')
 
     class Meta:

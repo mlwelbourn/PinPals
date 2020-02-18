@@ -14,7 +14,7 @@ class HeaderComponent extends Component {
                     <Container>
                         <Menu.Item><Link to='/'>Home</Link></Menu.Item>
                         <Menu.Item><Link to='/map'>Map</Link></Menu.Item>
-                        <Menu.Item><Link to='/pins'>Active Pins</Link></Menu.Item>
+                        <Menu.Item><Link to='/notifications'>Notifications</Link></Menu.Item>
                         {
                             this.props.loggedIn
                                 ?

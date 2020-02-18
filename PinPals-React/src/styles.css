@@ -8,3 +8,14 @@ body {
     overflow: hidden;
 }
 
+.lobby{
+    display: flex;
+    margin-top: 3em;
+    justify-content: flex-end;
+    align-content: bottom;
+   
+}
+
+.lobby-card{
+    border: 10px red !important
+}

@@ -42,7 +42,7 @@ class CreatePin extends Component {
     }
 
     render() {
-
+        console.log(this.state)
         return(
             <>
           
@@ -78,7 +78,7 @@ class CreatePin extends Component {
                         
                         }
                         >Delete Pin</Button>
-                    <Button><Link to='/chat'>Connect</Link></Button>
+                    <Button><Link title={this.state.title} to={`/chat/${this.props.id}`}>Connect</Link></Button>
                         </Card> 
                     </>
                     
