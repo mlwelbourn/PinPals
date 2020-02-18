@@ -25,7 +25,7 @@ def register():
         user_dict = model_to_dict(user)
 
         del user_dict['password']
-        return jsonify(data = user_dict, status = {'code': 200, 'message': f"Successfully registere {user_dict['email']}"})
+        return jsonify(data = user_dict, status = {'code': 200, 'message': f"Successfully registered {user_dict['email']}"})
 
 @users.route('/login', methods=['POST'])
 def login():

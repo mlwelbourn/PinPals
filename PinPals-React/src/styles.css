@@ -1,0 +1,10 @@
+#map {
+    height: 90vh;
+    width: 100wh;
+    margin: 10vh 0 0 0;
+}
+
+body {
+    overflow: hidden;
+}
+

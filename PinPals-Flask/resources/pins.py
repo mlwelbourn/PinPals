@@ -21,14 +21,14 @@ def get_all_pins():
 #Create Route
 @pins.route('/', methods=["POST"])
 @login_required
-def create_city():
+def create_pin():
     try:
         payload = request.get_json()
+        print(payload)
         payload['creator'] = current_user.id
         pin = models.Pin.create(**payload)
         print(pin.__dict__)
         pin_dict = model_to_dict(pin)
-
         return jsonify(data = pin_dict, status = {"code": 201, "message": "Success"})
 
     except models.DoesNotExist:

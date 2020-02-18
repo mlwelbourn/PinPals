@@ -9,7 +9,6 @@ DATABASE = PostgresqlDatabase('pinpals_app')
 class User(UserMixin, Model):
     username = CharField(unique = True)
     email = CharField(unique = True)
-    messages = CharField()
     password = CharField()
 
     class Meta:
@@ -24,6 +23,12 @@ class Pin(Model):
     class Meta:
         database = DATABASE
 
+class Message(Model):
+    message = CharField()
+    creator = ForeignKeyField(User, backref = 'messages')
+
+    class Meta:
+        database = DATABASE
 
 
 def initialize():
