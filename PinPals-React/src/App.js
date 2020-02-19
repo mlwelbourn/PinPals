@@ -11,7 +11,8 @@ import './styles.css'
 class App extends Component {
 	state = {
 		loggedIn: false,
-		loggedInUserEmail: null
+		loggedInUserEmail: null,
+		
 	}
 
 	handleLoggedInStatus = (loggedInUserEmail) => {
@@ -42,6 +43,8 @@ class App extends Component {
 		}
 	}
 
+
+
 	render() {
 		return (
 			<main>
@@ -56,7 +59,7 @@ class App extends Component {
 					/>
 					<Route
 						exact path="/map"
-						render={(props) => <MapContainer {...props}/>}
+						render={(props) => <MapContainer {...props} />}
 					/>
 					<Route
 						exact path="/chat/:title"

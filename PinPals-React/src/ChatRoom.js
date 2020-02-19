@@ -2,12 +2,13 @@ import React from 'react'
 import Lobby from './Lobby'
 import { Button, List, Comment, Form, Header } from 'semantic-ui-react'
 
+
 class ChatRoom extends React.Component {
     constructor() {
         super();
         this.state = {
             lobby: [],
-            newMessage: {},
+            messages: [],
         }
     }
     addUserToLobby = () => {
@@ -18,13 +19,17 @@ class ChatRoom extends React.Component {
         }
     }
 
-    addMessage = async (idx, e, data) => {
-        console.log(data)
-        e.preventDefault();
+    addMessage = async (newMessage) => {
+        const id = this.props.match.params.title
+        const messageToSend = {
+            messages: newMessage,
+            pin_id: id
+        }
+       
         try {
             const createdMessageResponse = await fetch(`http://localhost:8000/api/v1/messages/`, {
                 method: 'POST',
-                body: JSON.stringify(data),
+                body: JSON.stringify(messageToSend),
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -43,40 +48,70 @@ class ChatRoom extends React.Component {
         }
     }
 
-    // handleSubmit = (e) => {
-    //     this.addMessage();
-    //     // console.log(this.state)
-    // }
+    getMessages = async () => {
+        try {
+            const messages = await fetch(`http://localhost:8000/api/v1/messages/${this.props.match.params.title}`, { credentials: 'include' });
+            const parsedMessages = await messages.json();
+
+            this.setState({
+                messages: parsedMessages.data
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
+    handleSubmit = (e) => {
+        const data = this.state.message
+        
+        this.addMessage(data);
+        // console.log(this.state)
+    }
 
     handleMessageChange = (e) => {
-        this.setState({newMessage: {
-            ...this.state.newMessage,
+        // this.setState({newMessage: {
+        //     ...this.state.newMessage,
+        //     [e.currentTarget.name]: e.currentTarget.value
+        // }})
+        this.setState({
             [e.currentTarget.name]: e.currentTarget.value
-        }})
+        })
+
     }
+
+
+    
 
     componentDidMount() {
         this.addUserToLobby()
+        this.getMessages()
+
     }
 
     render() {
             console.log(this.props)
             console.log(this.state)
+        const postMessages =  this.state.messages.map((message)=> {
+                return(
+                    <List>
+                    <List.Item>
+                        {this.props.loggedInUserEmail}: 
+                        {message}
+                        
+                    </List.Item>
+                </List>
+                )
+            })
         return(
             <div>
                 <Lobby className='lobby' lobby={this.state.lobby}></Lobby>
-                
-                <List>
-                    <List.Item>
-                        {this.props.loggedInUserEmail}:  {this.state.messages}
-                    </List.Item>
-                </List>
-                <Form onSubmit={this.addMessage.bind(null)}>
+                <div>{postMessages}</div>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Input 
                     type="text"
-                    name="messages" 
+                    name="message" 
                     placeholder="Type Your Message Here"
-                    value={this.state.messages}
+                    value={this.state.message}
                     onChange={this.handleMessageChange}>
 
                     </Form.Input>
