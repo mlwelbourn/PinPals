@@ -96,7 +96,7 @@ class ChatRoom extends React.Component {
                     <List>
                     <List.Item>
                         {this.props.loggedInUserEmail}: 
-                        {message}
+                        {message.messages}
                         
                     </List.Item>
                 </List>
