@@ -10,7 +10,8 @@ function Lobby (props) {
             display: "flex",
             marginTop: "4em",
             justifyContent: "flex-end",
-            alignContent: "right",
+            alignContent: "flex-end",
+            
         },
         
     }

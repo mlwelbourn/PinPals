@@ -7,7 +7,7 @@ class ChatRoom extends React.Component {
         super();
         this.state = {
             lobby: [],
-            messages: [],
+            newMessage: {},
         }
     }
     addUserToLobby = () => {
@@ -18,13 +18,13 @@ class ChatRoom extends React.Component {
         }
     }
 
-    addMessage = async (e, message) => {
-        
-
+    addMessage = async (idx, e, data) => {
+        console.log(data)
+        e.preventDefault();
         try {
-            const createdMessageResponse = await fetch(`http://localhost:8000/api/v1/cities/`, {
+            const createdMessageResponse = await fetch(`http://localhost:8000/api/v1/messages/`, {
                 method: 'POST',
-                body: JSON.stringify(message),
+                body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -36,21 +36,23 @@ class ChatRoom extends React.Component {
             this.setState({
                 messages: [...this.state.messages, parsedResponse.data]
             })
-
+            console.log(this.state)
 
         } catch (err) {
             console.log('error: ', err)
         }
     }
 
-    handleSubmit = (e) => {
-        this.addMessage();
-    }
+    // handleSubmit = (e) => {
+    //     this.addMessage();
+    //     // console.log(this.state)
+    // }
 
     handleMessageChange = (e) => {
-        this.setState({
+        this.setState({newMessage: {
+            ...this.state.newMessage,
             [e.currentTarget.name]: e.currentTarget.value
-        })
+        }})
     }
 
     componentDidMount() {
@@ -58,16 +60,18 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+            console.log(this.props)
+            console.log(this.state)
         return(
             <div>
                 <Lobby className='lobby' lobby={this.state.lobby}></Lobby>
+                
                 <List>
                     <List.Item>
                         {this.props.loggedInUserEmail}:  {this.state.messages}
                     </List.Item>
                 </List>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.addMessage.bind(null)}>
                     <Form.Input 
                     type="text"
                     name="messages" 

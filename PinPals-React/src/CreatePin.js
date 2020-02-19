@@ -35,6 +35,11 @@ class CreatePin extends Component {
         })
     }
 
+    handleShow = () => {
+        console.log(this.props.id)
+        this.props.props.history.push(`/chat/${this.props.id}`)
+    }
+
     clearForm = () => {
         this.setState({
             title: ''
@@ -43,6 +48,7 @@ class CreatePin extends Component {
 
     render() {
         console.log(this.state)
+        console.log(this.props)
         return(
             <>
           
@@ -78,7 +84,11 @@ class CreatePin extends Component {
                         
                         }
                         >Delete Pin</Button>
-                    <Button><Link title={this.state.title} to={`/chat/${this.props.id}`}>Connect</Link></Button>
+                    <Button
+                        onClick={this.handleShow}>
+                        {/* <Link to={`/chat/${this.props.id}`}>Connect</Link> */}
+                        Connect
+                        </Button>
                         </Card> 
                     </>
                     

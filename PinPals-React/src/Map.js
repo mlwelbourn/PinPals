@@ -123,9 +123,11 @@ class AppMap extends Component {
                     <Marker key={`marker-${idx}`} position={position.latlng}  >
                         <Popup>
                             <CreatePin 
+                                props={this.props}
                                 submit={true} 
                                 title={position.title} 
-                                description={position.description} 
+                                description={position.description}
+                                creatorId={position.creator.id} 
                                 id={position.id}
                                 deletePin={this.deletePin}
                                 addPin={this.addPin.bind(null, idx)}/>

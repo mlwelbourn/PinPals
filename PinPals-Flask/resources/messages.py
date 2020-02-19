@@ -29,7 +29,7 @@ def create_message():
         messages = models.Message.create(**payload)
         print(message.__dict__)
         message_dict = model_to_dict(message)
-        return jsonify(data = pin_dict, status = {"code": 201, "message": "Success"})
+        return jsonify(data = message_dict, status = {"code": 201, "message": "Success"})
 
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 400, "message": "Error Creating the Resources"})
