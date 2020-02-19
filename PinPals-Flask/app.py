@@ -7,6 +7,9 @@ app.secret_key = 'thissecret'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
+
+
 import models
 from resources.pins import pins
 from resources.users import users

@@ -63,6 +63,8 @@ def update_pin(id):
 @pins.route('/<id>', methods=["DELETE"])
 def delete_pin(id):
     try:
+        query = models.Message.delete().where(models.Message.pin_id == id)
+        query.execute()
         query = models.Pin.delete().where(models.Pin.id == id)
         query.execute()
         return jsonify(data='Resource Successfully Deleted', status={"code": 200, "message": "Resource successfully deleted"})

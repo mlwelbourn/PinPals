@@ -25,8 +25,8 @@ class Pin(Model):
 
 class Message(Model):
     messages = CharField()
-    # pin = ForeignKeyField(Pin, backref = 'messages')
-    creator = ForeignKeyField(User, backref = 'messages')
+    # pin_id =  ForeignKeyField
+    pin_id = ForeignKeyField(Pin, backref = 'messages')
 
     class Meta:
         database = DATABASE
@@ -34,6 +34,6 @@ class Message(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Pin], safe=True)
+    DATABASE.create_tables([User, Pin, Message], safe=True)
     print('Tables Created')
     DATABASE.close()
