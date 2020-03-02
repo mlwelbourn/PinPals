@@ -4,7 +4,11 @@ from flask_login import UserMixin
 import os
 from playhouse.db_url import connect
 
-DATABASE = PostgresqlDatabase('pinpals_app')
+
+if 'ON_HEROKU' in os.environ:
+    DATABASE = connect(os.environ.get('DATABASE_URL'))
+else:
+    DATABASE = PostgresqlDatabase('pinpals_app')
 
 class User(UserMixin, Model):
     username = CharField(unique = True)
@@ -25,8 +29,8 @@ class Pin(Model):
 
 class Message(Model):
     messages = CharField()
-    # pin_id =  ForeignKeyField
     pin_id = ForeignKeyField(Pin, backref = 'messages')
+    user_id = CharField()
 
     class Meta:
         database = DATABASE

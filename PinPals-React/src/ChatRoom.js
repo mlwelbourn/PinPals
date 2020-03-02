@@ -12,19 +12,22 @@ class ChatRoom extends React.Component {
         }
     }
     addUserToLobby = () => {
-        if(this.props.loggedInUserEmail) {
+        if(this.props.loggedInUserName) {
             this.setState({
-                lobby: [this.props.loggedInUserEmail]
+                lobby: [this.props.loggedInUserName]
             })
         }
     }
 
     addMessage = async (newMessage) => {
-        const id = this.props.match.params.title
+        const pinId = this.props.match.params.title
+        const userNameId = this.props.loggedInUserName
         const messageToSend = {
             messages: newMessage,
-            pin_id: id
+            pin_id: pinId,
+            user_id: userNameId
         }
+        console.log(messageToSend)
        
         try {
             const createdMessageResponse = await fetch(`http://localhost:8000/api/v1/messages/`, {
@@ -89,17 +92,14 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-            console.log(this.props)
-            console.log(this.state)
+            console.log(this.state.messages)
         const postMessages =  this.state.messages.map((message)=> {
                 return(
-                    <List>
-                    <List.Item>
-                        {this.props.loggedInUserEmail}: 
-                        {message.messages}
-                        
-                    </List.Item>
-                </List>
+                    <Comment>
+                        <Comment.Author as='a'>{message.user_id}</Comment.Author>
+                         <Comment.Text>                        {message.messages}
+                    </Comment.Text>
+                    </Comment>
                 )
             })
         return(

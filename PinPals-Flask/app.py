@@ -34,10 +34,11 @@ def unauthorized():
         }
     )
 
-CORS(pins, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(users, origins=['http://localhost:3000'],
+CORS(pins, origins=['http://localhost:3000', 'https://pinpals-react.herokuapp.com/', 'http://pinpals-react.herokuapp.com/'],
+ supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://pinpals-react.herokuapp.com/', 'http://pinpals-react.herokuapp.com/'],
 supports_credentials=True)
-CORS(messages, origins=['http://localhost:3000'],
+CORS(messages, origins=['http://localhost:3000', 'https://pinpals-react.herokuapp.com/', 'http://pinpals-react.herokuapp.com/'],
 supports_credentials=True)
 
 app.register_blueprint(pins, url_prefix='/api/v1/pins')
@@ -60,6 +61,9 @@ def index():
 
 DEBUG = True
 PORT = 8000
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 if __name__ == '__main__':
     models.initialize()
     app.run(debug=DEBUG, port=PORT)

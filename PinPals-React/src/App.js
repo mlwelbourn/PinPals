@@ -12,13 +12,24 @@ class App extends Component {
 	state = {
 		loggedIn: false,
 		loggedInUserEmail: null,
+		loggedInUserName: null,
 		
 	}
 
 	handleLoggedInStatus = (loggedInUserEmail) => {
+		console.log(loggedInUserEmail)
 		this.setState({
 			loggedIn: true,
-			loggedInUserEmail: loggedInUserEmail
+			loggedInUserEmail: loggedInUserEmail,
+			
+		})
+	}
+	handleUserNameStatus = (loggedInUserName) => {
+		console.log(loggedInUserName)
+		this.setState({
+			loggedIn: true,
+			loggedInUserName: loggedInUserName,
+			
 		})
 	}
 
@@ -55,6 +66,7 @@ class App extends Component {
 						render={(props) => <LoginRegisterForm {...props}
 							loggedIn={this.state.loggedIn}
 							loggedStatus={this.handleLoggedInStatus}
+							usernameStatus={this.handleUserNameStatus}
 						/>}
 					/>
 					<Route
@@ -63,7 +75,11 @@ class App extends Component {
 					/>
 					<Route
 						exact path="/chat/:title"
-						render={(props) => <ChatRoom {...props} loggedInUserEmail={this.state.loggedInUserEmail}/>}
+						render={(props) => <ChatRoom {...props} 
+						loggedInUserEmail={this.state.loggedInUserEmail}
+						loggedInUserName={this.state.loggedInUserName}
+						/>}
+						
 					/>
 				</Switch>
 

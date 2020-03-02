@@ -26,6 +26,7 @@ class LoginRegisterForm extends Component {
 
         if (parsedLoginResponse.status.code === 200) {
             this.props.loggedStatus(parsedLoginResponse.data.email)
+            this.props.usernameStatus(parsedLoginResponse.data.username)
             this.props.history.push('/map')
         } else {
             console.log('Login Failed: ', parsedLoginResponse);
@@ -33,7 +34,7 @@ class LoginRegisterForm extends Component {
     }
 
     register = async (registerInfo) => {
-        const response = await fetch(`http://localhost:8000/api/v1/users/register`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/register`, {
             method: 'POST',
 
             credentials: 'include',
@@ -48,7 +49,7 @@ class LoginRegisterForm extends Component {
         if (parsedRegisterResponse.status.code === 200) {
 
             this.props.loggedStatus(parsedRegisterResponse.data.email)
-
+            this.props.usernameStatus(parsedRegisterResponse.data.username)
             this.props.history.push('/map');
         } else {
             console.log('Register Failed: ', parsedRegisterResponse);
