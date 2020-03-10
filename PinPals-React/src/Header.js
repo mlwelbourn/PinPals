@@ -9,8 +9,10 @@ class HeaderComponent extends Component {
 
     render() {
         return (
-            <Header className='header'>
-                <Menu fixed='top'>
+            <Header style={{margin: 0}} className='header'>
+                <Menu 
+                // fixed='top'
+                >
                     <Container>
                         <Menu.Item><Link to='/'>Home</Link></Menu.Item>
                         <Menu.Item><Link to='/map'>Map</Link></Menu.Item>

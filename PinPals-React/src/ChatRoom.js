@@ -1,6 +1,7 @@
 import React from 'react'
 import Lobby from './Lobby'
-import { Button, List, Comment, Form, Header } from 'semantic-ui-react'
+import { Button, List, Comment, Form, Header, Grid } from 'semantic-ui-react'
+import './styles.css'
 
 
 class ChatRoom extends React.Component {
@@ -103,21 +104,26 @@ class ChatRoom extends React.Component {
                 )
             })
         return(
-            <div>
-                <Lobby className='lobby' lobby={this.state.lobby}></Lobby>
-                <div>{postMessages}</div>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Input 
-                    type="text"
-                    name="message" 
-                    placeholder="Type Your Message Here"
-                    value={this.state.message}
-                    onChange={this.handleMessageChange}>
-
-                    </Form.Input>
-                    <Button type="submit">Create Message</Button>
-                </Form>
-            </div>
+            <Grid divided  style={{ height: '90vh' }}>
+                <Grid.Column  width={8} id='leftChatColumn'>
+                    {postMessages}
+                        <Form style={{marginTop: 'auto'}} onSubmit={this.handleSubmit}>
+                        <Form.Input 
+                        type="text"
+                        name="message" 
+                        placeholder="Type Your Message Here"
+                        value={this.state.message}
+                        onChange={this.handleMessageChange}>
+                        </Form.Input>
+                        <Button type="submit">Create Message</Button>
+                    </Form>
+                </Grid.Column>
+             
+                <Grid.Column width={2}>
+                    <Lobby className='lobby' lobby={this.state.lobby}></Lobby>
+                </Grid.Column>
+                    
+            </Grid>
         )
     }
 }
