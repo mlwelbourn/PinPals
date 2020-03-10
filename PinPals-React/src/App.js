@@ -34,7 +34,7 @@ class App extends Component {
 	}
 
 	logout = async () => {
-		const response = await fetch(`http://localhost:8000/api/v1/users/logout`, {
+		const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/logout`, {
 			method: 'GET',
 			credentials: 'include',
 			headers: {
@@ -71,7 +71,10 @@ class App extends Component {
 					/>
 					<Route
 						exact path="/map"
-						render={(props) => <MapContainer {...props} />}
+						render={(props) => <MapContainer {...props}
+						loggedInUserName={this.state.loggedInUserName}
+						loggedInUserEmail={this.state.loggedInUserEmail}
+						/>}
 					/>
 					<Route
 						exact path="/chat/:title"

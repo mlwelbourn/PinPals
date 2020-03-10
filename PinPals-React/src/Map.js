@@ -27,7 +27,7 @@ class AppMap extends Component {
         data.coordinates = `${target.lat} ${target.lng}`
         console.log(idx, data)
         try {
-            const createdPinResponse = await fetch(`http://localhost:8000/api/v1/pins/`, {
+            const createdPinResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/pins/`, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -50,7 +50,7 @@ class AppMap extends Component {
     getPins = async () => {
         try {
             let temp;
-            const pins = await fetch(`http://localhost:8000/api/v1/pins/`, { credentials: 'include' });
+            const pins = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/pins/`, { credentials: 'include' });
             await pins.json().then((val)=>{
                 temp = val.data.map(pin=>{
                  let latlng = pin.coordinates
@@ -83,7 +83,7 @@ class AppMap extends Component {
 
     deletePin = async (id) => {
         console.log(id)
-        const deletePinResponse = await fetch(`http://localhost:8000/api/v1/pins/${id}`, {
+        const deletePinResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/pins/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         }).then(() => {
@@ -130,6 +130,8 @@ class AppMap extends Component {
                                 creatorId={position.creator.id} 
                                 id={position.id}
                                 deletePin={this.deletePin}
+                                loggedInUserName={this.props.loggedInUserName}
+                                loggedInUserEmail={this.props.loggedInUserEmail}
                                 addPin={this.addPin.bind(null, idx)}/>
                         </Popup>
                     </Marker>

@@ -30,7 +30,7 @@ class ChatRoom extends React.Component {
         console.log(messageToSend)
        
         try {
-            const createdMessageResponse = await fetch(`http://localhost:8000/api/v1/messages/`, {
+            const createdMessageResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/messages/`, {
                 method: 'POST',
                 body: JSON.stringify(messageToSend),
                 headers: {
@@ -53,7 +53,7 @@ class ChatRoom extends React.Component {
 
     getMessages = async () => {
         try {
-            const messages = await fetch(`http://localhost:8000/api/v1/messages/${this.props.match.params.title}`, { credentials: 'include' });
+            const messages = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/messages/${this.props.match.params.title}`, { credentials: 'include' });
             const parsedMessages = await messages.json();
 
             this.setState({
