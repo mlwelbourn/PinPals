@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { Header, Container, Menu } from 'semantic-ui-react';
 
 class HeaderComponent extends Component {
+    
+
     logoutHandler = () => {
         this.props.logout()
     }
 
     render() {
         return (
+            
             <Header style={{margin: 0}} className='header'>
+                {this.props.loggedIn ?
                 <Menu 
                 // fixed='top'
                 >
@@ -36,8 +40,9 @@ class HeaderComponent extends Component {
                                 null
                         }
                     </Container>
-                </Menu>
-            </Header>
+                </Menu> 
+                : null }
+            </Header> 
         )
     }
 };

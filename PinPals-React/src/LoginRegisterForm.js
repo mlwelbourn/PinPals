@@ -36,13 +36,12 @@ class LoginRegisterForm extends Component {
     register = async (registerInfo) => {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/register`, {
             method: 'POST',
-
             credentials: 'include',
             body: JSON.stringify(registerInfo),
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
+        });
 
         const parsedRegisterResponse = await response.json();
 

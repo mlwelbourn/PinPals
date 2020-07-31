@@ -19,7 +19,8 @@ function Lobby (props) {
 const lobbyList = lobby && lobby.map((lobby) => {
     console.log(lobby)
     return (
-        <Card className='lobby-card' style={lobbyStyle.cardStyle}>
+        <Card className='lobby-card' 
+        style={lobbyStyle.cardStyle}>
             <Card.Header textAlign='center'>Lobby</Card.Header>
             <Message>{lobby}</Message>
         </Card>
